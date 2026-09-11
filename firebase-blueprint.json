@@ -1,0 +1,90 @@
+{
+  "entities": {
+    "StudentSelfAttendance": {
+      "title": "StudentSelfAttendance",
+      "description": "Daily individual student attendance with GPS verification, time stamps, and uniform selfie photo",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier" },
+        "studentName": { "type": "string", "description": "Full student name" },
+        "className": { "type": "string", "description": "School class name" },
+        "date": { "type": "string", "description": "Date in YYYY-MM-DD format" },
+        "clockIn": { "type": "string", "description": "Clock-in time" },
+        "clockOut": { "type": "string", "description": "Clock-out time" },
+        "status": { "type": "string", "description": "Attendance status (Hadir, Izin, Sakit, Alfa)" },
+        "reason": { "type": "string", "description": "Reason for permit/illness" },
+        "photo": { "type": "string", "description": "Selfie image URL or base64" },
+        "photoOut": { "type": "string", "description": "Clock-out selfie image" },
+        "latitude": { "type": "number", "description": "GPS latitude" },
+        "longitude": { "type": "number", "description": "GPS longitude" },
+        "distanceMeter": { "type": "number", "description": "Calculated distance to school in meters" },
+        "updatedAt": { "type": "string", "description": "ISO timestamp" }
+      },
+      "required": ["id", "studentName", "className", "date", "status"]
+    },
+    "SavedAttendanceLog": {
+      "title": "SavedAttendanceLog",
+      "description": "Class session attendance records submitted by teachers or scan kiosk",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique log identifier" },
+        "className": { "type": "string", "description": "Class identifier" },
+        "date": { "type": "string", "description": "Date in YYYY-MM-DD format" },
+        "subject": { "type": "string", "description": "Subject or session name" },
+        "records": { "type": "string", "description": "Detailed attendance items JSON" },
+        "summary": { "type": "string", "description": "Summary of attendance counts" },
+        "updatedAt": { "type": "string", "description": "ISO timestamp" }
+      },
+      "required": ["id", "className", "date"]
+    },
+    "KetuaKelasReport": {
+      "title": "KetuaKelasReport",
+      "description": "Class daily log submitted by class captain",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique report ID" },
+        "className": { "type": "string", "description": "Class name" },
+        "date": { "type": "string", "description": "Report date" },
+        "captainName": { "type": "string", "description": "Name of class captain" },
+        "records": { "type": "string", "description": "Attendance details" },
+        "updatedAt": { "type": "string", "description": "ISO timestamp" }
+      },
+      "required": ["id", "className", "date"]
+    },
+    "MasterTeacher": {
+      "title": "MasterTeacher",
+      "description": "Master teacher record including profile photo, duties, and subjects",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique teacher ID" },
+        "name": { "type": "string", "description": "Teacher full name" },
+        "nip": { "type": "string", "description": "Civil servant ID" },
+        "nuptk": { "type": "string", "description": "Educator ID" },
+        "subject": { "type": "string", "description": "Subject taught" },
+        "role": { "type": "string", "description": "Primary role" },
+        "photoUrl": { "type": "string", "description": "Profile picture data or URL" },
+        "whatsApp": { "type": "string", "description": "WhatsApp contact number" },
+        "updatedAt": { "type": "string", "description": "ISO timestamp" }
+      },
+      "required": ["id", "name"]
+    }
+  },
+  "firestore": {
+    "/master_teachers/{id}": {
+      "schema": "MasterTeacher",
+      "description": "Store master teacher data and profile photos"
+    },
+    "/student_self_attendance/{id}": {
+      "schema": "StudentSelfAttendance",
+      "description": "Store individual student self-clock-in attendance records"
+    },
+    "/saved_attendance_logs/{id}": {
+      "schema": "SavedAttendanceLog",
+      "description": "Store class attendance logs from teachers and kiosks"
+    },
+    "/ketua_kelas_reports/{id}": {
+      "schema": "KetuaKelasReport",
+      "description": "Store ketua kelas reports"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "SIHADIR",
+  "description": "SISTEM INFORMASI HARIAN ABSENSI DIGITAL MURID DAN GURU SMK NEGERI 2 KONAWE",
+  "requestFramePermissions": ["camera", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
